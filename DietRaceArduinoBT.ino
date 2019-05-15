@@ -4,7 +4,6 @@
   created 2 May 2019
   modified 10 May 2019
   by Steve Kim
-
   This example code is in the public domain.
  
 */
@@ -12,7 +11,7 @@
 
 //#define DEBUG 1
 
-//블루투스 전송 변수
+//Bluetooth send constants
 #define ACCEL         "w"
 #define STEER_LEFT    "a"
 #define STEER_RIGHT   "d"
@@ -22,7 +21,7 @@
 
 #define RPM_LIMIT_COUNT 50
 
-SoftwareSerial hm10(8,9); //RX, TX 연결
+SoftwareSerial hm10(8,9); //RX, TX connection 
 
 // set pin numbers for the five buttons:
 const int upButton = 12;//bicycle hall sensor
@@ -34,19 +33,19 @@ const int escButton = 3;
 const int ledPin = 13;
 
 
-//스피드 판단 변수
-int  rotate_count_thresh = 2;//홀센서 민감도 변수
+//Speed variable
+int  rotate_count_thresh = 2;//Hall sensor sensitivity
 bool hall_sensor_contacted = false;
 int  rotate_count = 0;
 
-//지속 시간 측정 변수
+//Duration measurement variables
 float start_time;
 float end_time;
 float on_time;
 float off_time;
 float passed_time;
 
-//버튼 상태 변수
+//Button State
 bool leftButtonState = false;
 bool rightButtonState = false;
 bool enterButtonState = false;
@@ -89,7 +88,7 @@ void loop() {
   on_time = micros();
 
   while(true){
-    //버튼 입력 처리
+    //Button input processing
     ///////////// Left Button //////////////////////////////////////////////////////
     if(digitalRead(leftButton) == HIGH && leftButtonState == false){//left button on
       if(digitalRead(rightButton) == LOW && rightButtonState == false){//left only on
@@ -172,7 +171,7 @@ void loop() {
         off_time = micros();
         passed_time = (off_time - on_time) / 1000000.0;
       
-      if(passed_time >= 1){//회전 멈추 었을 경우 처리
+      if(passed_time >= 1){//when rotation stopped
         //debug_serial_println("break 1");
         break;
       }
@@ -204,4 +203,4 @@ void loop() {
     //Keyboard.releaseAll();   
     //debug_serial_println("key release All");
   }  
-}
+} 
